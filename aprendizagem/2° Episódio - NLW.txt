@@ -1,0 +1,89 @@
+- Rotas
+	Endereço completo da nossa requisição
+	Semântica
+		Exemplo
+			POST localhost:3333/users - Criar um usuário
+			GET localhost:3333/users - Listagem de usuários
+			GET localhost:3333/users/5 - Buscar dados do usuário com ID 5
+	localhost:3333/users
+
+- Recursos
+	Qual entidade estamos acessando do sistema
+	/users
+
+
+- Metódos HTTP
+	GET: Buscar uma ou mais informações do back-end
+	POST: Criar uma nova informação no back-end
+	PUT: Atualizar uma informação existente no back-end
+	DELETE:	Remove uma informção do back-end
+
+
+O browser ele entende somente requisições do tipo GET, então sempre vai utilizar
+esse HTTP method, então vamos utilizar o insomnia para conseguir testar os nossos outros métodos HTTP.
+
+
+
+
+
+- Tipos de Parametros
+	Request Param
+		Parâmetros que vem na própria rota que identificam um recurso
+			http://localhost:3333/users/:id
+			:id - Parametro, por exemplo se queremos somente um único usuário.
+		Utilizado quando
+			Buscar dados de um único usuário
+			Atualizar dados de um único usuário
+			Deletar dados de um único usuário
+
+	Query Parm
+		Parâmetros geralmente opcionais que são passados na rota, e não tem uma padronização que nem Request Parm.
+		http://loaclhost:333/users?search=Yasmim (search seria o parâmetro, Yasmim o valor)
+		Utilizado para
+			Filtrar dados
+			Paginação
+
+
+	Request Body
+		Parâmetros para criação/atualização de informações
+		
+		O express não vem por padrão entendendo o formato JSON (que estamos utlizando para criar nossa API RESTful)
+		então precisamos utilizar o método use() do express, para adiconarmos um plugin! e esse plugin é o
+		express.json() que vai fazer com que o nosso express comece entender o formato JSON, e possamos assim fazer uma simpes
+		Request Body.
+
+
+
+
+
+- KNEX.JS
+	Biblioteca que permite trabalharmos com bancos de dados SQL (relacionais) com uma linguagem unificada para todos os bancos (postgreeSQL, MySQL, SQL server, SQLite)
+	Código não é escrito na linguagem SQL, mas sim JavaScript
+	Se mudarmos de um banco pro outro de um dia para noite, o código do banco em JavaScript vai continuar o mesmo
+	Vamos utlizar o SQLite porque assim não vamos precisar instalar nada na nossa máquina
+
+Instalação:
+
+npm install knex
+
+Instalação do nosso cliente:
+
+npm install sqlite3
+
+Executar depois da criação da criação das migrations e do meu arquivo knexFile.ts:
+
+npx knex migrate:latest --knexfile knexfile.ts migrate:latest
+
+(Vai criar o arquivo database.sqlite)
+
+Se instalarmos a extensão sqlite, executarmos ctrl + shift + p e escrevermos sqlite: open databse
+podemos escolher o nosso arquivo databa.sqlite e ver as tabelas e campos
+no lado inferior esquerdo.
+
+Depois de ter criado todas as funcionalidades da nossa aplicação:
+
+npm install cors
+
+Instalação da tipagem de dados do cors:
+
+npm install @types/cors -D

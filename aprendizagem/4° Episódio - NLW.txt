@@ -1,0 +1,75 @@
+expo google fonts
+
+expo install expo-font @expo-google-fonts/ubuntu @expo-google-fonts/roboto
+
+é sempre bom quando instalamos novas dependências,
+fecharmos nosso app e scannear ele novamente.
+
+
+React Navigation - Biblioteca que vamos utlizar pra fazer navegação
+
+npm install @react-navigation/native
+
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+npm install @react-navigation/stack
+
+
+Todo texto do React Native precisa estar dentro do componente <Text> não importa o que seja.
+
+No expo já vem pronto todos os pacotes de icones.
+
+
+Extensão que vai permitir a gente utlizar mapas:
+
+expo install react-native-maps
+
+
+Outra extensão do expo para instalar:
+
+expo install expo-constants
+
+
+Como o React Native não entende imagens .svg, vamos instalar outra extensão para que consigamos usa-los:
+
+expo install react-native-svg
+
+Agora para trabalhar com Requisições a nossa API RESTFul, vamos instalar a biblioteca do axios:
+
+npm install axios
+
+Sempre que armazenamos um vetor no estado precisamos falar qual é o formato desse vetor.
+
+Sempre que utlizamos a função map dentro do componente, além de não utilizarmos chaves mas sim parênteses,
+temos que passar a propriedade "key", porém ele tem uma necessidade de que seja uma string,
+então somente convertemos:
+
+      {items.map(item => (
+                    <TouchableOpacity key={String(item.id)} 
+                    style={[
+                      styles.item,
+                      selectedItems.includes(item.id) ? styles.selectedItem : {}
+                    ]} 
+                    onPress={() => { handleSelectItem(item.id) }}
+                    activeOpacity={0.6}>
+                      <SvgUri width={42} height={42} uri={item.image_url} />
+                      <Text style={styles.itemTitle}>{item.title}</Text>
+                   </TouchableOpacity>
+               ))}
+
+
+
+instalando a instação expo install expo-location para a apliacação abrir na localização do usuário
+
+
+
+
+Biblioteca que vamos utilizar para fazer a funcionalidade de abrir o email e o whatsapp:
+
+expo install expo-mail-composer
+
+
+Desafio:
+
+Buscar os dados do IBGE e preencher na home usando
+a biblioteca do react-native-select

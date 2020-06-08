@@ -1,0 +1,283 @@
+Primeira etapa: limpar os arquivos que não vamos precisar.
+
+// public
+	index.html - Também limpamos os arquivos que o inex.html dentro dele estava dependendo. (Tiramos todos os metas e deixamos até o content="#00000")
+
+// src
+	App.css - Podemos tirar todo o css
+	App.tsx - Também limpamos os arquivos que ele dependia tanto da importação quanto da function app que está retornando o html (imagem).
+	Index.tsx - Também limpamos os arquivos que ele dependia e a parte debaixo deixando somente ReactDOM.
+	react-app-env.d.ts
+	
+
+Para executar a nossa aplicação usamos o script strat.
+
+npm start
+
+
+///// DEPOIS VOLTAR NESSA PARTE DO VIDEO (7:00 MIN) PARA ESCREVER NOVAMENTE
+
+Vemos que nosso index.html só há uma <div id="root">, então como o React faz para que apareça a nossa página?
+
+Quando carrega a nossa página, o JavaScript é executado, e todo o nosso HTML é retornado para dentro desse div.
+
+A importação do React é praticamente utlizada em todos os nossos arquivos mesmo que não estejamos utlizando diretamente o React.
+
+O index.tsx é o prinicpal arquivo, o nosso index.html lê ele primeiro!
+
+E vemos que no nosso index.tsx temos a importação do ReactDOM, oque significa que vamos usar o React para web, utlizando o DOM (Document Object Model).
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+O que essa linha de código está dizendo?
+
+Que queremos que renderize (método render do ReactDOM) o nosso App (que é a função que está retornando HTML lá no nosso App.tsx) dentro da nossa div com id="root".
+
+// Esse React.StrictMode não é necessário //
+
+
+Bom, como sabemos, com o React tudo é feito dentro do JavaScript, principalmente o HTML, então:
+
+- Vamos instalar duas extensões para que nossos arquivos JavaScript e TypeScript consigam utilizar o emmit dentro deles.
+
+crtl + shift + p > Preferences: open settings (JSON) 
+
+e nas configurações colocamos:
+
+
+    "emmet.syntaxProfiles": { "javascript": "jsx" },
+    "emmet.includeLinguages": { "javascript": "javascriptreact" }
+
+
+
+
+
+
+- JSX
+	Sintaxe de XML dentro do JavaScript
+	JSX é a possibilidade de conseguirmos escrever HTML dentro do JavaScript
+	Por isso as extensões são .jsx ou .tsx, elas nos permitem utilizar o JSX propriamente.
+
+
+- Componentes
+	Separar a nossa aplicação em pequenos blocos que podem ser reutilizados
+	Como criamos um componente?
+		Vamos usar como exemplo o Header, porque é algo que vai se repetir entre as páginas, então podemos reaproveitar.
+		criamos um arquivo sempre dentro da pasta "src", Header.tsx
+		Algo interessante, os componentes sempre tem letra maiúscula pra eles não baterem com as tags HTML.
+
+		/// Header.tsx
+
+		import React from 'react';
+
+		function Header() {
+    			return (
+     			  <header>
+         		   <h1>Ecoleta</h1>
+       			 </header>
+   			 )
+			}
+
+		export default Header; 
+
+
+
+		/// App.tsx
+	
+
+		import React from 'react';
+		import './App.css';
+
+		import Header from './Header';
+
+		function App() {
+ 			 return (
+     				 <div>
+      				   <Header /> // Podemos replicar esse componente quantas vezes quisermos
+
+       				   <h1>Conteúdo da aplicação</h1>
+     				 </div>
+ 			 );
+			}
+
+		export default App;
+
+
+
+- Propriedades
+
+	Quando utlizamos propriedades nos nossos compenentes é bom transformamos
+	os nossos componentes em constantes. ou seja, fazer uma constante que recebe uma arrow function, então ele vai continuar sendo uma função.
+
+	
+import React from 'react';
+
+interface headerProps {
+    title: string,
+}
+
+const Header: React.FC<headerProps> = (props) => {
+    return (
+        <header>
+            <h1>{props.title}</h1>
+        </header>
+    )
+}
+
+export default Header; 
+
+
+Utilizamos a palavra interface que é uma funcionalidade do TypeScript,
+então criamos um objeto que recebe propriedades e dizemos o tipo dessas propriedades.
+
+e Agora no nosso componente, definimos o tipo dele como React.FC,
+esse FC significa function component, e no parâmetro dele que chamamos de generic
+colocamos aquele objeto que criamos com as propriedades em sinal de <>.
+
+Lembrando se passamos as propriedades do objeto assim title?: string,
+essa interrogação significa que essa propriedade é opcional, se passamos sem
+quando formos utilizar esse componente no nosso App.tsx temos que passar essa propriedade obrigatoriamente.
+
+e no parâmetro da função do nosso componente, passamos "props", e esse parâmetro
+vai receber todas as propriedades, e podemos utilizar ele em qualquer lugar:
+
+<h1>{props.title}</h1> - sempre quando usamos essas chaves dentro do HTML, significa que vamnos colocar
+algo do JS dentro do HTML.
+
+E assim, podemos utilizar o nosso componente Header em vários lugares, mudando só o title dele.
+
+
+
+
+
+- Estado
+	Informações mantidas pelo próprio componente
+	Vamos utilizar pra guardar os dados dos inputs, localização, etc.
+
+
+import React from 'react';
+
+interface headerProps {
+    title: string,
+}
+
+const Header: React.FC<headerProps> = (props) => {
+    let counter = 1;
+
+    function incrementButton(){
+        counter++
+    }  
+
+    return (
+        <header>
+            <h1>{counter}</h1>
+            <button type="button" onClick={incrementButton}>Aumentar</button>
+        </header>
+    )
+}
+
+export default Header; 
+
+
+Por que a função não funciona no componente??
+
+Porque se quisermos que o componente reflita a mudança da minha variável, precisamos usar o estado.
+
+Começamos importanto ele:
+
+import React, { useState } from 'react';
+
+///
+
+E transformamos a nossa variável num estado:
+
+let counter = useState(0) - O número 0 corresponde ao valor inicial que queremos dar a variável.
+
+Mas mesmo assim não vai funcionar, porque tem outro conceito que se chama imutabilidade, que não
+permite que mudemos o valor do estado diretamente.
+
+Então o que fazemos?
+
+let counter = useState(0) // O useState sempre retorna um vetor [], e esse vetor tem duas posições, [o nosso valor que queremos dar (posição 0), função pra atualizar o valor do estado (posição 1)]
+
+Então podemos utilizar desestruturação de vetores:
+
+let [ counter, setCounter ] = useState(0);
+
+Ficando assim:
+
+import React, { useState } from 'react';
+
+interface headerProps {
+    title: string,
+}
+
+const Header: React.FC<headerProps> = (props) => {
+    let [ counter, setCounter ] = useState(0);
+
+    function incrementButton(){
+        setCounter(counter + 1) // Respeitando o conceito de imutabilidade do React
+    }  
+
+    return (
+        <header>
+            <h1>{counter}</h1>
+            <button type="button" onClick={incrementButton}>Aumentar</button>
+        </header>
+    )
+}
+
+export default Header;  
+
+E isso se aplica dentro do nosso HTML, e também vale para as propriedades:
+
+Então, se você entendeu isso praticamente acabou o React,
+o React são esses conceitos!
+
+
+
+Usando ícones dentro do React:
+
+npm install react-icons
+
+
+Para lidar com a navegação (sistema de rooteamento):
+
+npm install react-router-dom
+
+
+
+
+
+  <Route component={Home} path="/" exact /> 
+  <Route component={CreatePoint} path="/create-point" />
+
+O path ele verifica somente se a rota começa com aquele determinado valor, então
+o create-point acabaria caindo na home, pois tbm começa com '/'.
+
+Então exact faz com que ele verifique se é igual exatamente ao valor do path,
+fazendo com que o create-point seja executado, porque não tem
+somente '/', mas '/create-point'.
+
+
+
+
+Bibliotecas para integração do mapa:
+
+npm install leaflet react-leaflet
+
+
+
+Instalando a biblioteca para fazer a requisição na nossa API:
+
+(Dá pra fazer sem, utlizando o fetch, mas vamos utilizar o axios)
+
+Vamos utilizar a biblioteca do axios com o mesmo fim da aplicação que fizemos
+no curso de JavaScript ES6+, porque conseguimos configurar o axios
+para uma baseURL que já comece com "http://localhost:3333", assim precisamos colocar
+apenas o final da rota.

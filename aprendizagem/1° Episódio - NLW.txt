@@ -1,0 +1,204 @@
+NPM - Serve para instalarmos pacotes de terceiros. Frameworks, bibliotecas, códigos de terceiros.
+
+API RESTful - RESTful diz que nosso API, o nosso backend vai seguir algumas regras, uma padronização. Então se nossa API segue os padrões REST, ele é RESTful.
+
+- Back-end (Node.js)
+	Regras de négocio
+	Conexão com banco de dados
+	Envio de emails ou conexão com serviços externos.
+	Autenticação (logar e deslogar) e autotização (o que o usuário tem permissão pra fazer na nossa aplicação).
+	Criptografia e segurança
+
+	- MVC (Model / View / Controller)
+		Template engine - uma forma de conseguirmos retornar HTML do nosso back-end
+
+	- REST (Estrutura que vamos trabalhar)
+
+		Quando o usuário acessar a rota de /users por exemplo, ela vai retornar apenas os dados do usuário.
+		E estes dados na grande maioria das vezes utilizamos o JSON!
+
+		JSON - JavaScript Object Notation (Se assemelha muito com a sintaxe de objeto no JS)
+
+		Exemplo:
+
+		[
+			{
+			    "nome": "Yasmim"
+			}			
+
+		]
+
+
+-Front-end (ReactJS) - Também poderia ser em Javascript & HTML5 puro.
+	Listagem de usuários (HTML & CSS)
+
+-Mobile (React Native)
+	Listagem de usuários (HTML & CSS)
+
+Utilizando essa estrutura REST, os dados podem ser consumidos tanto pelo front-end quanto pelo mobile.
+Algo que não seria possível caso utilizassemos o MVC, porque ele retornaria o HTML e CSS, mas o React Native não entende HTML.	
+
+
+
+
+
+
+
+Conceitos do TypeScript - O JavaScript com super poderes!
+
+- Por que TypeScript? 
+
+	/**
+	* Função que exibe dados do usúario
+	*/
+
+	function displayUserInformation(user){
+		
+		return `${user.name} - ${user.email}`
+	}
+
+	export default displayUserInformation;
+
+	///////
+
+	Desafio:Incluir a informação da cidade e UF do usuário nesse retorno.
+	
+	° Qual o formato do objeto do usuário?
+	° Utilizo user.city ou user.addres.city?
+	° Será que a cidade e UF são obrigatórias?
+		
+- Mitos e verdades
+
+	° TypeScript diminui a produtividade
+	° TypeScript é transformar JavaScript em Java ou C#
+	° O mercado não usa TypeScript
+	° TypeScript substitui o JavaScript por completo
+	° TypeScript atrapalha quem é iniciante
+
+
+
+
+
+
+Criamos a pasta aonde ficará o nosso back-end, e dentro dela já começamos executando:
+
+npm init -y (initilization) - Vai criar o nosso arquivo que contém as informações da nossa aplicação (package.JSON)
+
+- y (para o NPM não fazer as perguntas de nome do projeto e deixar tudo como default.
+
+///////
+
+express - Um micro framework para lidar com rotas.
+
+Vamos instalar o express como depêndencia do nosso projeto:
+
+npm install express
+
+npm install @types/express -D (adicionando a definição de tipos para o express)
+
+///////
+
+Vamos criar uma pasta "src" para que todo código da nossa aplicação fique armazenado nessa pasta.
+
+E já para antecipar temos que instalar o TypeScript, então:
+
+npm install typescript -D
+
+///////
+
+Se tentarmos executar esse arquivo TS no node (node src/serves.ts) ele não vai funcionar
+porque esse é um arquivo TS. Então instalar outro pacote para que isso funcione:
+
+npm install ts-node -D
+
+///////
+
+Temos o node, o npm e o npx! todos vem instalados junto com node
+mas, o que é esse npx?
+
+NPX - serve para executarmos pacotes dentro do Node.js, então utilizaremos para executar o arquivo TS:
+
+npx ts-node src/server.ts
+
+Vamos perceber que ele dará um erro, e esse erro é referente
+porque quando vamos criar uma aplicação com TS, nós
+precisamos ter um arquivo de configuração do TS!
+Que diz quais features vamos utlizar e quais não queremos, então:
+
+npx tsc --init
+
+////////
+
+Para não precisarmos toda hora parar o servidor e executar novamente em cada alteração,
+vamos instalar um pacote:
+
+npm install ts-node-dev -D
+
+e agora executamos o pacote adicionando o dev:
+
+npx ts-node-dev src/server.ts
+
+Porém, esse código está ficando grande demais e ele
+vai ficar porque vamos instalar mais algumas coisinhas!
+
+Então podemos dentro dos nossos scripts no nosso arquivo package.JSON,
+podemos criar uma propriedade "dev" (porém pode ser qualquer nome)
+e colocar esse código (ts-node-dev src/server.ts // sem o npx) como valor do dev!
+
+Assim, sempre quando executarmos npm run dev ele vai automaticamente
+executar o código que está dentro do "dev".
+
+E agora só executamos o "npm run dev"
+
+
+
+
+
+
+
+
+
+ReactJS
+	- O que é React?
+		Biblioteca para construção de interfaces
+		Utilizado para construção de Single-Page-Applications (SPA)
+		Podemos chamar de framework?
+		Tudo fica dentro do JavaScript
+		React/ReactJS/ React Native
+
+	import React from 'react';
+
+	import './button.css';
+	import icon from './button.png';
+
+	function Butoon(){
+		return (
+		  <button>
+			<img src={icon} />
+		  </button>
+			
+		)	
+	} 
+
+	- Vantagens
+		Organização do código
+			Componetização
+
+		Divisão de responsabilidades
+			Back-end: regras de negócio
+			Front-end: interface
+		
+		Uma API, múltiplos clientes
+
+
+Criação do projeto com React:
+
+npx create-react-app web --template=typescript
+
+Quando executamos um pacote que não existe do nosso projeto, o npx baixa ele e executa.
+o web ali é referente ao nome do nosso projeto e colocamos o template de typescript
+porque vamos criar a nossa aplicação utlizando typescript.
+
+Executamos nosso projeto React utlizando:
+
+npm start

@@ -1,0 +1,25 @@
+Andando a milha extra:
+
+- Detalhar os projetos no Github
+- Compartilhar o conhecimento no linkedin
+- Organizar os meus perfils nessas plataformas
+- Participar de comunidades e ajudar outros dev's
+- Criar projetos pessoais por mais simples que ele sejam
+- Não parar nunca de evoluir, porque sempr haverá o próximo nível!
+
+
+Extensão que vamos utilizar para lidar com uploads de imagens:
+
+npm install multer
+
+
+Biblioteca que vamos instalar para fazer aquela caixa aonde o usuário pode colocar os arquivos:
+
+npm install react-dropzone
+
+
+Biblioteca que vamos utlizar para fazer validação de dados:
+
+npm install celebrate
+
+npm install @types/hapi__joi -D

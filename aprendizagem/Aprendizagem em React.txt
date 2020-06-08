@@ -1,0 +1,49 @@
+/// App.tsx
+
+import React, { useState } from 'react';
+import './App.css';
+
+import Header from './Header';
+
+function App() {
+  let [ counter, setCounter ] = useState(0);
+
+  function incrementButton(){
+      setCounter(counter + 1)
+  }  
+
+  return (
+      <div>
+        <Header title={`Contador: ${counter}`} />
+
+        <h1>{counter}</h1>
+        <h1>{counter*2}</h1>
+        <button type="button" onClick={incrementButton}>Aumentar</button>
+      </div>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+/// Header.tsx (componente)
+
+import React from 'react';
+
+interface headerProps {
+    title: string,
+}
+
+const Header: React.FC<headerProps> = (props) => {
+    return (
+        <header>
+            <h1>{props.title}</h1>
+        </header>
+    )
+}
+
+export default Header; 
